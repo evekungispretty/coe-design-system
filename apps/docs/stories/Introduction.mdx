@@ -1,0 +1,100 @@
+{/* Introduction.mdx */}
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Introduction" />
+
+<div style={{fontFamily:"'Lato', sans-serif", color:'#0a0a0a'}}>
+
+# UF COE Design System
+
+**University of Florida · College of Education**
+
+A single source of truth for colors, typography, spacing, and components across all COE digital properties — from WordPress/Divi to React applications like THRIVES and Network Manager.
+
+---
+
+## Packages
+
+| Package | Description |
+|---|---|
+| `@coe/tokens` | CSS custom properties, JS token objects, JSON for Figma Tokens Studio |
+| `@coe/ui` | React 18 component library — Radix primitives + COE brand styling |
+| `@coe/utils` | `cn()`, `focusRing()`, `formatDate()`, `truncate()`, `generateId()` |
+
+---
+
+## Installation
+
+```bash
+# Using pnpm (recommended)
+pnpm add @coe/tokens @coe/ui @coe/utils
+
+# Or npm
+npm install @coe/tokens @coe/ui @coe/utils
+```
+
+---
+
+## Setup
+
+### 1. Import CSS tokens globally
+
+In your app's root CSS or `_app.tsx`:
+
+```css
+@import '@coe/tokens/css';
+```
+
+Or in a CSS file:
+
+```css
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Nunito:wght@300;400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@import '@coe/tokens/css';
+```
+
+> **Note:** Museo Sans Display is a licensed typeface. Nunito is used here as a visual stand-in. If you have a license, add `'Museo Sans Display'` before Nunito in the font stack.
+
+### 2. Configure Tailwind
+
+Extend your project's `tailwind.config.js` with the COE preset:
+
+```js
+// tailwind.config.js
+const coePreset = require('@coe/ui/tailwind');
+
+module.exports = {
+  presets: [coePreset],
+  content: [
+    './src/**/*.{ts,tsx}',
+    './node_modules/@coe/ui/dist/**/*.{js,mjs}',
+  ],
+};
+```
+
+### 3. Use components
+
+```tsx
+import { Button, Card, CardHeader, CardTitle, Alert } from '@coe/ui';
+
+export function Example() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>College of Education</CardTitle>
+      </CardHeader>
+      <div className="p-6 pt-0 flex gap-3">
+        <Button variant="orange-filled">Apply Now</Button>
+        <Button variant="navy-outlined">Learn More</Button>
+      </div>
+    </Card>
+  );
+}
+```
+
+---
+
+## Figma Tokens Sync
+
+Import `node_modules/@coe/tokens/dist/tokens.json` into **Figma Tokens Studio** to keep Figma variables in sync with code.
+
+</div>

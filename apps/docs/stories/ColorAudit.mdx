@@ -1,0 +1,90 @@
+{/* ColorAudit.mdx */}
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Color Audit" />
+
+export const RogueFlag = ({ color, hex, note, badge, badgeStyle }) => (
+  <div style={{
+    background:'#fff8f0', border:'1px solid #f5c89a',
+    borderLeft:'3px solid #cc4927', padding:'12px 16px',
+    marginBottom:12, display:'flex', alignItems:'center', gap:12
+  }}>
+    <div style={{width:28,height:28,background:color,border:'1px solid rgba(0,0,0,0.1)',flexShrink:0}} />
+    <div style={{flex:1}}>
+      <div style={{fontFamily:"'IBM Plex Mono', monospace", fontWeight:600, color:'#1c2f3d', fontSize:14}}>{hex}</div>
+      <div style={{color:'#535353', fontSize:12, marginTop:3}}>{note}</div>
+    </div>
+    <span style={{
+      flexShrink:0, fontSize:10, fontFamily:"'IBM Plex Mono', monospace",
+      padding:'3px 8px', ...badgeStyle
+    }}>
+      {badge}
+    </span>
+  </div>
+);
+
+<div style={{fontFamily:"'Lato', sans-serif"}}>
+
+# Color Audit
+
+3 colors found in production Divi templates that are **not** in the official 8-color brand palette. These were identified by comparing the Theme Builder template file against `divi_color_palette`.
+
+> **Action required.** Each flagged color should either be (1) added to the brand palette if intentional, (2) replaced with the nearest brand color, or (3) removed from the template.
+
+---
+
+## Rogue Values
+
+<RogueFlag
+  color="#2ea3f2"
+  hex="#2ea3f2"
+  note="Divi default blue — appears in footer_widget_header_color, footer_widget_bullet_color, footer_menu_active_link_color, and primary_nav_dropdown_line_color. Never overridden. Closest brand color: #1f7e98 (Teal)"
+  badge="HIGH PRIORITY"
+  badgeStyle={{background:'#fde8d8', color:'#a03010', border:'1px solid #f0c4a0'}}
+/>
+
+<RogueFlag
+  color="#1c2e3d"
+  hex="#1c2e3d"
+  note="Near-duplicate of #1c2f3d (Navy Dark) — a 1-digit typo in the middle channel (G: 46 vs 47). Should be unified to --coe-navy-dark. Found in template shortcode attributes."
+  badge="TYPO"
+  badgeStyle={{background:'#fff0e0', color:'#a05000', border:'1px solid #f0d0a0'}}
+/>
+
+<RogueFlag
+  color="#de6561"
+  hex="#de6561"
+  note="Muted coral — not in brand palette, not a Divi default. May be a one-off from a previous designer or a hardcoded hover/state color. Nearest brand color: #cc4927 (Orange), though these are visually distinct."
+  badge="INVESTIGATE"
+  badgeStyle={{background:'#f8f7f5', color:'#535353', border:'1px solid #e2e0dc'}}
+/>
+
+---
+
+## Near-Duplicates to Consolidate
+
+| Color A | Color B | Difference | Recommendation |
+|---|---|---|---|
+| `#1c2f3d` (palette) | `#1c2e3d` (template) | G channel: 47 vs 46 | Use `--coe-navy-dark` everywhere |
+| `#0a0a0a` (font_color) | `#0a0303` (template) | RB channels: 0 vs 3 | Use a single near-black token |
+| `#1c2f3d` | `#11202b` (template) | Darker variant, not in palette | Audit usage — possibly decorative |
+
+---
+
+## Deprecated Color Exports
+
+These are exported from `@coe/tokens` as `deprecated` — for migration tracking only. **Do not use** in new work.
+
+```ts
+import { deprecated } from '@coe/tokens';
+
+// deprecated.diviBlue     → '#2ea3f2' (replace with coe-teal)
+// deprecated.navyDarkTypo → '#1c2e3d' (replace with coe-navy-dark)
+// deprecated.unknownCoral → '#de6561' (investigate)
+```
+
+---
+
+*Generated from `Divi-Theme-Builder-Templates.json` · 22 unique hex values found · 8 in brand palette · 3 flagged · 3 near-duplicates*
+
+</div>

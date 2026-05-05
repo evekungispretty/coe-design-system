@@ -6,14 +6,15 @@ Monorepo design system for the University of Florida College of Education, built
 ## Monorepo Map
 
 ```
-design-system/
+coe-design-system/
 ├── packages/
 │   ├── tokens/   @coe/tokens — CSS custom properties, JS/TS objects, Figma Tokens Studio JSON
-│   ├── ui/       @coe/ui    — 34 React components + Tailwind preset
+│   ├── ui/       @coe/ui    — 30+ React components + Tailwind preset
 │   └── utils/    @coe/utils — cn(), focusRing(), formatDate(), truncate(), generateId()
 ├── apps/
-│   └── docs/     Storybook 8 — dark shell theme, MDX docs, auto-discovered stories
+│   └── docs/     @coe/docs  — Storybook 8, COE dark shell theme, MDX docs, auto-discovered stories
 ├── turbo.json    Pipeline: build → test → lint (tokens built before ui)
+├── pnpm-workspace.yaml
 └── package.json  pnpm workspace root
 ```
 

@@ -1,0 +1,123 @@
+{/* DesignTokens.mdx */}
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Design Tokens" />
+
+export const Swatch = ({ color, name, hex, token }) => (
+  <div style={{border:'1px solid rgba(0,0,0,0.06)',overflow:'hidden',borderRadius:2}}>
+    <div style={{height:72,background:color}} />
+    <div style={{padding:'10px 12px',background:'#fff',borderTop:'1px solid #e2e0dc'}}>
+      <div style={{fontSize:12,fontWeight:700,color:'#1c2f3d',fontFamily:"'Nunito', sans-serif"}}>{name}</div>
+      <div style={{fontSize:11,color:'#535353',fontFamily:"'IBM Plex Mono', monospace",marginTop:2}}>{hex}</div>
+      <div style={{fontSize:10,color:'#1f7e98',fontFamily:"'IBM Plex Mono', monospace",marginTop:3}}>{token}</div>
+    </div>
+  </div>
+);
+
+export const SpaceBar = ({ token, value, px, label }) => (
+  <div style={{display:'flex',alignItems:'center',gap:20,padding:'12px 0',borderBottom:'1px solid #e2e0dc'}}>
+    <span style={{fontFamily:"'IBM Plex Mono', monospace",fontSize:12,color:'#1f7e98',width:90,flexShrink:0}}>{token}</span>
+    <span style={{fontFamily:"'IBM Plex Mono', monospace",fontSize:12,color:'#535353',width:50}}>{value}</span>
+    <div style={{background:'#194588',height:20,width:px,flexShrink:0}} />
+    <span style={{fontSize:12,color:'#535353'}}>{label}</span>
+  </div>
+);
+
+<div style={{fontFamily:"'Lato', sans-serif"}}>
+
+# Design Tokens
+
+All design decisions are expressed as CSS custom properties. Import `@coe/tokens/css` to use them globally, or import named exports from `@coe/tokens` for JavaScript usage.
+
+---
+
+## Brand Palette
+
+<div style={{display:'grid',gridTemplateColumns:'repeat(4, 1fr)',gap:12,marginBottom:32}}>
+  <Swatch color="#535353" name="Gray" hex="#535353" token="--coe-gray" />
+  <Swatch color="#e8e8e8" name="Gray Light" hex="#e8e8e8" token="--coe-gray-light" />
+  <Swatch color="#1f7e98" name="Teal" hex="#1f7e98" token="--coe-teal" />
+  <Swatch color="#194588" name="Navy" hex="#194588" token="--coe-navy" />
+  <Swatch color="#1c2f3d" name="Navy Dark" hex="#1c2f3d" token="--coe-navy-dark" />
+  <Swatch color="#cc4927" name="Orange" hex="#cc4927" token="--coe-orange" />
+  <Swatch color="#edba75" name="Gold" hex="#edba75" token="--coe-gold" />
+  <Swatch color="#16305d" name="Blue Deep" hex="#16305d" token="--coe-blue-deep" />
+</div>
+
+> **Palette structure:** Slots 1–2 are neutrals. Slots 3–5 are cool blues/teals for structure. Slots 6–7 are warm accents (orange + gold). Slot 8 is a deeper blue variant.
+
+---
+
+## Semantic Colors
+
+| Role | Value | Token |
+|---|---|---|
+| Primary | `#194588` Navy | `--color-primary` |
+| Accent / Link | `#cc4927` Orange | `--color-accent` / `--color-link` |
+| Body text | `#0a0a0a` Near Black | `--color-text` |
+| Muted text | `#535353` Gray | `--color-text-muted` |
+| Faint text | `#888888` | `--color-text-faint` |
+| Background | `#ffffff` White | `--color-bg` |
+| Surface | `#f8f7f5` Warm off-white | `--color-surface` |
+| Border | `#e2e0dc` | `--color-border` |
+
+---
+
+## Typography
+
+**Heading font:** Museo Sans Display → fallback Nunito, Georgia, sans-serif  
+**Body font:** Lato, sans-serif  
+**Mono font:** IBM Plex Mono, monospace
+
+| Role | Desktop | Mobile | Line Height | Token |
+|---|---|---|---|---|
+| H1 | 32px | 28px | 1.3 | `--size-h1` |
+| Body | 16px | 16px | 1.8 | `--size-body` |
+| Post header | 30px | — | 1.0 | `--size-post-header` |
+| Primary nav | 14px | — | — | `--size-nav-primary` |
+| Widget heading | 18px | — | — | `--size-widget-heading` |
+| Widget body | 14px | — | 1.7 | `--size-widget-body` |
+| Button | 20px | — | — | `--size-btn` |
+
+---
+
+## Spacing Scale
+
+<div style={{border:'1px solid #e2e0dc',padding:'28px 24px',marginBottom:32}}>
+  <SpaceBar token="--space-1" value="4px" px={4} label="Icon gap, tight inline" />
+  <SpaceBar token="--space-2" value="8px" px={8} label="Component inner padding" />
+  <SpaceBar token="--space-3" value="12px" px={12} label="List item gap" />
+  <SpaceBar token="--space-4" value="16px" px={16} label="Card padding, row padding (2×)" />
+  <SpaceBar token="--space-5" value="24px" px={24} label="Section inner gap" />
+  <SpaceBar token="--space-6" value="32px" px={32} label="Between sections" />
+  <SpaceBar token="--space-7" value="48px" px={48} label="Page section padding (4×)" />
+  <SpaceBar token="--space-8" value="64px" px={64} label="Hero / large section blocks" />
+</div>
+
+---
+
+## Breakpoints
+
+| Name | Width | Usage |
+|---|---|---|
+| Phone | 400px | Mobile layout switch |
+| Tablet | 768px | Tablet layout switch |
+| Desktop | 980px | Desktop/tablet breakpoint |
+| Max width | 1600px | Content container cap |
+
+---
+
+## Shell / Dark UI Colors
+
+Used in admin dashboards (UF Network Manager, THRIVES).
+
+<div style={{display:'grid',gridTemplateColumns:'repeat(4, 1fr)',gap:12}}>
+  <Swatch color="#11202b" name="Shell BG" hex="#11202b" token="--shell-bg" />
+  <Swatch color="#0d1a24" name="Sidebar BG" hex="#0d1a24" token="--shell-sidebar-bg" />
+  <Swatch color="#1e3347" name="Border" hex="#1e3347" token="--shell-border" />
+  <Swatch color="#172c3c" name="Hover" hex="#172c3c" token="--shell-hover" />
+  <Swatch color="#1e3a50" name="Active" hex="#1e3a50" token="--shell-active" />
+  <Swatch color="#cc4927" name="Accent" hex="#cc4927" token="--shell-accent" />
+</div>
+
+</div>
